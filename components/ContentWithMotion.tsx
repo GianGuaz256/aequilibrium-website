@@ -36,7 +36,7 @@ export default function ContentWithMotion() {
           Aequilibrium is developing a quantitative yield optimizing model to intercept the growing institutional demand in asset management for stablecoin and crypto assets.
         </p>
         <div className="flex justify-center mt-20 mb-6">
-          <Button className="group">
+          <Button className="group" onClick={() => window.open('https://drive.google.com/file/d/1YV3lqezmZlzBN37oXq5RgNPweigc6hKd/view?usp=sharing')}>
             Read paper
             <FileText
               className="-me-1 ms-2 opacity-60 transition-transform group-hover:translate-x-0.5"
