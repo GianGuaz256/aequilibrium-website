@@ -19,7 +19,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "æquilibrium",
+  title: "0var",
   description: "A Quantitative Model for structuring a Portfolio of productive Crypto Assets",
   icons: {
     icon: '/favicon.ico',

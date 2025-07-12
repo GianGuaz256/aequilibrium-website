@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { HeroPill } from "@/components/ui/hero-pill";
 import { Button } from "@/components/ui/button";
-import { FileText } from "lucide-react";
+import { Mail } from "lucide-react";
 
 export default function ContentWithMotion() {
   return (
@@ -27,18 +27,18 @@ export default function ContentWithMotion() {
           />
         </div>
         <h1 className="text-5xl md:text-6xl font-bold mb-8 font-[var(--font-calibri)]">
-          æquilibrium
+          <span className="text-primary">0</span>var
         </h1>
         <h2 className="text-xl md:text-2xl mb-8 font-[var(--font-calibri)]">
           A Quantitative Framework for structuring a Portfolio of productive Crypto Assets
         </h2>
         <p className="text-lg md:text-xl mb-16 max-w-3xl mx-auto font-[var(--font-calibri)]">
-          Aequilibrium is developing a quantitative yield optimizing model to intercept the growing institutional demand in asset management for stablecoin and crypto assets.
+          0var is developing a quantitative yield optimizing model to intercept the growing institutional demand in asset management for stablecoin and crypto assets.
         </p>
         <div className="flex justify-center mt-20 mb-6">
-          <Button className="group" onClick={() => window.open('https://drive.google.com/file/d/1YV3lqezmZlzBN37oXq5RgNPweigc6hKd/view?usp=sharing')}>
-            Read paper
-            <FileText
+          <Button className="group" onClick={() => window.open('mailto:info@ovar.xyz')}>
+            Contact us
+            <Mail
               className="-me-1 ms-2 opacity-60 transition-transform group-hover:translate-x-0.5"
               size={16}
               strokeWidth={2}
