@@ -29,7 +29,7 @@ export default function Home() {
     afterImage = parts.slice(1).join(imageMarkdown);
   }
 
-  // Function to convert markdown links to actual links
+  // Function to convert markdown links to actual links and apply colors to syntax
   const renderTextWithLinks = (text: string) => {
     const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
     const parts = [];
@@ -37,15 +37,16 @@ export default function Home() {
     let linkMatch;
 
     while ((linkMatch = linkRegex.exec(text)) !== null) {
-      // Add text before the link
+      // Add text before the link with color styling
       if (linkMatch.index > lastIndex) {
-        parts.push(text.substring(lastIndex, linkMatch.index));
+        const textBefore = text.substring(lastIndex, linkMatch.index);
+        parts.push(...applyMarkdownColors(textBefore, parts.length));
       }
       
       // Add the link
       parts.push(
         <a
-          key={linkMatch.index}
+          key={`link-${linkMatch.index}`}
           href={linkMatch[2]}
           target="_blank"
           rel="noopener noreferrer"
@@ -58,12 +59,45 @@ export default function Home() {
       lastIndex = linkRegex.lastIndex;
     }
 
-    // Add remaining text
+    // Add remaining text with color styling
     if (lastIndex < text.length) {
-      parts.push(text.substring(lastIndex));
+      const remainingText = text.substring(lastIndex);
+      parts.push(...applyMarkdownColors(remainingText, parts.length));
     }
 
     return parts.length > 0 ? parts : text;
+  };
+
+  // Function to apply colors to markdown syntax - entire lines based on starting syntax
+  const applyMarkdownColors = (text: string, keyOffset: number) => {
+    const result: React.ReactNode[] = [];
+    const lines = text.split('\n');
+    
+    for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
+      const line = lines[lineIndex];
+      let lineColor = null;
+      
+      // Check what the line starts with and apply color to entire line
+      if (line.trimStart().startsWith('##')) {
+        // Headers - blue
+        lineColor = '#4A49f4';
+      } else if (line.trimStart().startsWith('**')) {
+        // Bold text lines - green
+        lineColor = '#47893E';
+      } else if (line.trimStart().startsWith('-')) {
+        // List items - violet
+        lineColor = '#B33599';
+      }
+      
+      result.push(
+        <span key={`${keyOffset}-line-${lineIndex}`} style={lineColor ? { color: lineColor } : undefined}>
+          {line}
+          {lineIndex < lines.length - 1 ? '\n' : ''}
+        </span>
+      );
+    }
+    
+    return result;
   };
 
   return (
