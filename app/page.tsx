@@ -87,6 +87,9 @@ export default function Home() {
       } else if (line.trimStart().startsWith('-')) {
         // List items - violet
         lineColor = '#B33599';
+      } else if (line.trimStart().startsWith('>')) {
+        // Blockquotes/notes - grey
+        lineColor = '#B5BBC3';
       }
       
       result.push(
