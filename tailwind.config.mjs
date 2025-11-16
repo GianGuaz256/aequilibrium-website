@@ -1,5 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 import flattenColorPalette from "tailwindcss/lib/util/flattenColorPalette";
+import typography from "@tailwindcss/typography";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -26,7 +27,7 @@ export default {
       },
     },
   },
-  plugins: [addVariablesForColors],
+  plugins: [typography, addVariablesForColors],
 };
 
 // This plugin adds each Tailwind color as a global CSS variable, e.g. var(--gray-200).
