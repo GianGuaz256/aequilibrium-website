@@ -68,6 +68,19 @@ export default function Home() {
     return parts.length > 0 ? parts : text;
   };
 
+  // Function to generate ID from header text
+  const generateId = (text: string): string => {
+    // Extract text after ## and emoji
+    const headerText = text.replace(/^##\s*[^\s]*\s*/, '').trim();
+    return headerText
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^\w-]+/g, '')
+      .replace(/--+/g, '-')
+      .replace(/^-+/, '')
+      .replace(/-+$/, '');
+  };
+
   // Function to apply colors to markdown syntax - entire lines based on starting syntax
   const applyMarkdownColors = (text: string, keyOffset: number) => {
     const result: React.ReactNode[] = [];
@@ -75,12 +88,14 @@ export default function Home() {
     
     for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
       const line = lines[lineIndex];
-      let lineColor = null;
+      let lineColor: string | undefined = undefined;
+      let headerId: string | undefined = undefined;
       
       // Check what the line starts with and apply color to entire line
       if (line.trimStart().startsWith('##')) {
         // Headers - blue
         lineColor = '#4A49f4';
+        headerId = generateId(line);
       } else if (line.trimStart().startsWith('**')) {
         // Bold text lines - green
         lineColor = '#47893E';
@@ -92,12 +107,33 @@ export default function Home() {
         lineColor = '#B5BBC3';
       }
       
-      result.push(
-        <span key={`${keyOffset}-line-${lineIndex}`} style={lineColor ? { color: lineColor } : undefined}>
-          {line}
-          {lineIndex < lines.length - 1 ? '\n' : ''}
-        </span>
-      );
+      if (headerId) {
+        // Wrap headers in a div for proper scrolling
+        result.push(
+          <span 
+            key={`${keyOffset}-line-${lineIndex}`} 
+            id={headerId}
+            style={{ 
+              color: lineColor, 
+              display: 'block',
+              scrollMarginTop: '6rem'
+            }}
+          >
+            {line}
+            {lineIndex < lines.length - 1 ? '\n' : ''}
+          </span>
+        );
+      } else {
+        result.push(
+          <span 
+            key={`${keyOffset}-line-${lineIndex}`}
+            style={lineColor ? { color: lineColor } : undefined}
+          >
+            {line}
+            {lineIndex < lines.length - 1 ? '\n' : ''}
+          </span>
+        );
+      }
     }
     
     return result;
