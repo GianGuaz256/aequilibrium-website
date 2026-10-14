@@ -71,6 +71,15 @@ export default function Navigation() {
                 </li>
               ))}
             </ul>
+            <div className="border-t border-gray-200">
+              <a
+                href="/backtest"
+                className="w-full text-left px-5 py-2 text-base transition-colors flex items-center gap-3 whitespace-nowrap text-gray-700 hover:bg-gray-50"
+              >
+                <span className="text-xl">📈</span>
+                <span>Backtest</span>
+              </a>
+            </div>
           </nav>
         </div>
       )}
